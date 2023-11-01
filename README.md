@@ -260,7 +260,7 @@ Mengimplementasikan warna-warna yang berbeda untuk setiap tombol (Lihat Item, Ta
       ];
     ```
 
-4. Hasilnya adalah sebagai berikut:
+4. Hasilnya adalah sebagai berikut:<br>
    ![Bonus Tugas 6](./img/bonus_tugas_6.png)
 
 
