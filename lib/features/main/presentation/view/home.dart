@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/data/models/menu_item.dart';
+import 'package:aci_rezeki_shop_mobile/core/widgets/left_drawer.dart';
 import 'package:aci_rezeki_shop_mobile/features/main/presentation/widget/menu_card.dart';
+import 'package:aci_rezeki_shop_mobile/features/main/presentation/view/add_item_form.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final List<MenuItem> items = [
-    MenuItem("Lihat Item", Icons.checklist, const Color(0xffef3f37)),
-    MenuItem("Tambah Item", Icons.add_shopping_cart, const Color(0xff262161)),
-    MenuItem("Logout", Icons.logout, const Color(0xfffbaf41)),
-  ];
-
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
+    final List<MenuItem> items = [
+      MenuItem(
+          name: "View Items",
+          icon: Icons.checklist,
+          color: const Color(0xffef3f37)),
+      MenuItem(
+          name: "Add Item",
+          icon: Icons.add_shopping_cart,
+          color: const Color(0xff262161),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddItemForm()));
+          }),
+      MenuItem(
+          name: "Logout", icon: Icons.logout, color: const Color(0xfffbaf41)),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Shopping List',
+          'Aci Rezeki Shop',
         ),
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -30,7 +41,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 // Widget Text untuk menampilkan tulisan dengan alignment center dan style yang sesuai
                 child: Text(
-                  'PBP Shop', // Text yang menandakan toko
+                  'Aci Rezeki Shop', // Text yang menandakan toko
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,

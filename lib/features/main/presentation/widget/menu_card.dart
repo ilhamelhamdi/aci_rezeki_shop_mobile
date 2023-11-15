@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/data/models/menu_item.dart';
+
+class MenuItem {
+  final String name;
+  final IconData icon;
+  final Color color;
+  final Function? onTap;
+
+  MenuItem(
+      {required this.name,
+      required this.icon,
+      required this.color,
+      this.onTap});
+}
 
 class MenuCard extends StatelessWidget {
   final MenuItem item;
@@ -17,7 +29,10 @@ class MenuCard extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
+                content: Text("You have pressed the ${item.name} button!")));
+          if (item.onTap != null) {
+            item.onTap!();
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
