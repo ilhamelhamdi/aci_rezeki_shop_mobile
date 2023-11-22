@@ -5,14 +5,14 @@ class Item extends Equatable {
   final int amount;
   final String description;
   final int price;
-  final String image;
+  final String? image;
 
   const Item(
       {required this.name,
       required this.amount,
       required this.description,
       required this.price,
-      required this.image});
+      this.image});
 
   @override
   List<Object?> get props => <Object?>[name, amount, description, price, image];

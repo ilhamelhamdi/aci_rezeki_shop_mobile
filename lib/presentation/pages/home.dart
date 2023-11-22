@@ -1,7 +1,8 @@
+import 'package:aci_rezeki_shop_mobile/presentation/pages/list_items.dart';
 import 'package:flutter/material.dart';
-import 'package:aci_rezeki_shop_mobile/core/widgets/left_drawer.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/widget/menu_card.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/view/add_item_form.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/left_drawer.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/menu_card.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/pages/add_item_form.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +12,11 @@ class HomePage extends StatelessWidget {
       MenuItem(
           name: "View Items",
           icon: Icons.checklist,
-          color: const Color(0xffef3f37)),
+          color: const Color(0xffef3f37),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ListItemsPage()));
+          }),
       MenuItem(
           name: "Add Item",
           icon: Icons.add_shopping_cart,

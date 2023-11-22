@@ -1,6 +1,7 @@
+import 'package:aci_rezeki_shop_mobile/presentation/pages/list_items.dart';
 import 'package:flutter/material.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/view/home.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/view/add_item_form.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/pages/home.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/pages/add_item_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -50,11 +51,22 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Add Product'),
+            title: const Text('Add Item'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const AddItemForm()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('View Items'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ListItemsPage()),
+              );
             },
           ),
         ],

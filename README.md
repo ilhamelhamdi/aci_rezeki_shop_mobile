@@ -20,6 +20,117 @@ NPM : 2206081194
   - [Bonus (Tugas 6)](#bonus-tugas-6)
 
 <details open>
+<summary><h2 id="tugas-9">Tugas 9</h2></summary>
+
+### Data JSON dan Model
+
+**Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?**
+
+Ya, memungkinkan untuk mengambil data JSON tanpa membuat model terlebih dahulu. Ini dapat dilakukan, misalnya, dengan menggunakan HTTP request seperti http.get di Flutter untuk mendapatkan data dari API.
+
+Tapi, lebih disarankan untuk membuat model dahulu, karena hal ini dapat memberikan beberapa keuntungan. Dengan membuat model, kita dapat lebih terstruktur dalam mengelola dan mem-parsing data. Model dapat membantu dalam memahami format data yang diharapkan dan memberikan jenis data yang lebih jelas. 
+
+Jadi, meskipun mungkin memungkinkan untuk mengambil data JSON tanpa membuat model, membuat model seringkali dianggap lebih baik untuk memperoleh manfaat tambahan dalam pengelolaan dan pemrosesan data.
+
+
+### _CookieRequest_
+
+**Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter!**
+
+CookieRequest dari package yang telah disediakan merupakan objek atau kelas yang berfungsi untuk menangani permintaan HTTP yang melibatkan pengelolaan cookie. Fungsinya utama adalah untuk mengelola informasi sesi atau preferensi pengguna yang disimpan dalam bentuk cookie.
+
+Mengapa perlu membagikan instance CookieRequest ke semua komponen di aplikasi Flutter? Dalam pengembangan website, biasanya cookie digunakan untuk menyimpan informasi tentang sesi atau preferensi pengguna. Saat ada permintaan HTTP, cookie ini bisa dikirim dari klien ke server lewat header permintaan, sehingga server mengetahui status atau konteks khusus dari klien.
+
+Di sini, Provider dalam Flutter digunakan buat mengatur state dan menyediakan instance CookieRequest ke seluruh aplikasi. Ini membuat semua bagian aplikasi dapat mengakses dan memanfaatkan instance CookieRequest tanpa harus membuat instance yang baru. Ini sesuai dengan prinsip _singleton_ yang menyatakan bahwa sebuah kelas hanya boleh memiliki satu instance saja dan menyediakan akses global ke instance tersebut.
+
+Karena CookieRequest itu menyimpan informasi yang diperlukan untu berinteraksi dengan server Django, misalnya token atau info otentikasi lainnya, dengan memakai instance yang sama, kita dapat memastikan bahwa semua bagian aplikasi yang membutuhkan info otentikasi bisa menggunakannya dengan mudah.
+
+### Mekanisme Pengambilan Data JSON
+
+Mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter melibatkan beberapa langkah:
+
+1. Membuat Request HTTP: 
+   Pertama, kita perlu membuat request HTTP ke endpoint yang menyediakan data dalam format JSON³. Ini biasanya dilakukan menggunakan package http.
+   
+  ``` final response = await Uri.parse('https://www.example.com');```
+
+2. Decoding Data JSON: 
+   Setelah mendapatkan response, kita perlu mendecode data JSON menjadi format yang dapat dipahami oleh Dart. Ini dapat dilakukan dengan menggunakan fungsi jsonDecode².
+
+  ```var data = jsonDecode(response.body);```
+
+3. Menampilkan Data pada Widget: Setelah data berhasil diubah menjadi model, data tersebut dapat ditampilkan pada widget Flutter. Misalnya, kita dapat menampilkan nama dan umur dari contoh di atas pada widget Text.
+   
+  ```Text('Name: ${sample.name}, Age: ${sample.age}');```
+
+Dengan demikian, data dari JSON dapat diambil dan ditampilkan pada Flutter.
+
+### Mekanisme Autentikasi Django-Flutter
+
+Untuk menjelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga tampilnya menu pada Flutter, kita bisa mengikuti langkah-langkah berikut:
+
+1. Input Data Akun pada Flutter:
+    Pengguna memasukkan informasi akun melalui formulir atau metode input lainnya di UI Flutter.
+    Informasi ini mungkin melibatkan data seperti username dan password.
+
+2. Permintaan Ke Backend Django:
+    Flutter mengirimkan data akun ke backend Django melalui permintaan HTTP, misalnya dengan menggunakan metode  `http.post`.
+    Permintaan ini berisi data yang diperlukan untuk proses otentikasi, seperti nama pengguna dan kata sandi.
+
+3. Otentikasi di Backend Django:
+    Django menerima permintaan dan melakukan proses otentikasi menggunakan data yang diberikan.
+    Jika proses otentikasi berhasil, Django menghasilkan session atau informasi otentikasi lainnya yang perlu dikirim kembali ke Flutter.
+    Jika proses otentikasi gagal, Django memberikan respon yang sesuai dengan kesalahan.
+
+4. Respon dari Django ke Flutter:
+    Django mengirimkan respon berupa data JSON yang berisi informasi yang dibutuhkan untuk validasi dan pesan yang menunjukkan apakah proses masuk berhasil atau tidak.
+    Flutter menerima respon dan mengolahnya.
+
+5. Tampilan Menu pada Flutter:
+    Jika proses masuk berhasil, Flutter menavigasi pengguna ke tampilan menu atau halaman lain yang sesuai dengan autentikasi yang berhasil.
+    Jika proses masuk gagal, Flutter menampilkan pesan kesalahan yang diterima dari Django.
+
+Untuk membuat fungsi login, register, dan login dalam aplikasi Flutter, kita dapat membuat fungsi atau metode yang melakukan tugas berikut:
+
+1. Fungsi Login:
+    Mengirimkan data akun ke backend Django.
+    Mengelola respon dari Django, termasuk menyimpan informasi otentikasi dan menavigasi pengguna ke halaman yang sesuai.
+
+2. Fungsi Registrasi (Bonus):
+    Mirip dengan fungsi login, tetapi dengan langkah-langkah tambahan untuk membuat akun baru.
+
+3. Fungsi Logout:
+    Mengirim permintaan keluar ke backend Django untuk mengakhiri sesi pengguna.
+    Membersihkan atau menghapus informasi otentikasi lokal di Flutter.
+
+### Widget yang Digunakan
+
+Berikut adalah daftar widget yang dipergunakan dalam tugas:
+
+- MaterialApp: Widget utama yang digunakan untuk mengatur konfigurasi aplikasi Flutter.
+- Scaffold: Widget yang memberikan kerangka dasar untuk tampilan visual aplikasi, termasuk AppBar dan body.
+- AppBar: Menampilkan bilah aplikasi di bagian atas layar.
+- Container: Digunakan untuk memberikan gaya dengan latar belakang gradient.
+- Column: Mengatur widget anak secara vertikal.
+- Stack: Menempatkan widget anak di atas satu sama lain.
+- Text: Menampilkan teks dengan gaya tertentu.
+- TextField: Input teks untuk memasukkan username dan password.
+- ElevatedButton: Tombol dengan latar belakang terisi. Digunakan untuk tombol masuk.
+- Navigator: Digunakan untuk navigasi antar halaman.
+- Form: Kontainer untuk elemen formulir. Memungkinkan validasi dan pengiriman formulir.
+- GlobalKey: Kunci global untuk mengakses state Form.
+- TextFormField: Elemen formulir khusus untuk menangani input teks.
+- Icon: Ikon grafis.
+- Drawer: Menu sisi kiri yang dapat diakses dengan menggeser dari kiri.
+- FutureBuilder: Widget untuk membangun antarmuka berdasarkan hasil masa depan (asynchronous).
+- ListView.builder: Menampilkan daftar item dengan builder callback.
+- InkWell: Widget yang mendeteksi ketukan dan memberikan respons visual. Digunakan untuk membuat teks "Buat Akun Baru" dapat diklik.
+
+</summary>
+
+
+
+<details>
 <summary><h2 id="tugas-8">Tugas 8</h2></summary>
 
 ### Perbedaan `Navigator.push()` dan `Navigator.pushReplacement()` pada Flutter

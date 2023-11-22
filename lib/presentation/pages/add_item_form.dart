@@ -1,7 +1,12 @@
+import 'package:aci_rezeki_shop_mobile/data/models/response_model.dart';
+import 'package:aci_rezeki_shop_mobile/domain/entities/item.dart';
+import 'package:aci_rezeki_shop_mobile/domain/usecases/create_item_use_case.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/pages/home.dart';
+import 'package:aci_rezeki_shop_mobile/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:aci_rezeki_shop_mobile/core/widgets/left_drawer.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/widget/input_text_field.dart';
-import 'package:aci_rezeki_shop_mobile/features/main/presentation/widget/input_number_field.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/left_drawer.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/input_text_field.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/input_number_field.dart';
 
 class AddItemForm extends StatefulWidget {
   const AddItemForm({super.key});
@@ -11,6 +16,19 @@ class AddItemForm extends StatefulWidget {
 }
 
 class _AddItemFormState extends State<AddItemForm> {
+  CreateItemUseCase createItemUseCase = getIt<CreateItemUseCase>();
+
+  Future<ResponseModel> createItem() async {
+    return await createItemUseCase.execute(
+      Item(
+        name: _name,
+        price: _price,
+        amount: _amount,
+        description: _description,
+      ),
+    );
+  }
+
   final _formKey = GlobalKey<FormState>();
   String _name = "";
   int _amount = 0;
@@ -75,36 +93,25 @@ class _AddItemFormState extends State<AddItemForm> {
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Theme.of(context).colorScheme.primary),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('The product has been added!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Name: $_name'),
-                                    Text('Price: $_price'),
-                                    Text('Amount: $_amount'),
-                                    Text('Deskripsi: $_description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        _formKey.currentState!.reset();
+                        final response = await createItem();
+                        if (response.status == 'success') {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("New item has been added!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text("Something wrong, please try again later"),
+                          ));
+                        }
                       }
                     },
                     child: const Text(
