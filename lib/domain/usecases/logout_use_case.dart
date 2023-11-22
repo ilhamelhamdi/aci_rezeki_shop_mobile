@@ -1,5 +1,6 @@
 // create LogoutUseCase class
 
+import 'package:aci_rezeki_shop_mobile/data/models/auth_response_model.dart';
 import 'package:aci_rezeki_shop_mobile/domain/repositories/auth_repository.dart';
 
 class LogoutUseCase {
@@ -9,9 +10,9 @@ class LogoutUseCase {
     _authRepository = authRepository;
   }
 
-  Future<void> execute() async {
+  Future<AuthResponseModel> execute() async {
     try {
-      await _authRepository.logout();
+      return await _authRepository.logout();
     } catch (e) {
       rethrow;
     }
