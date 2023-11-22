@@ -1,4 +1,5 @@
 import 'package:aci_rezeki_shop_mobile/domain/usecases/login_use_case.dart';
+import 'package:aci_rezeki_shop_mobile/main.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/pages/register.dart';
 import 'package:aci_rezeki_shop_mobile/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -26,15 +27,15 @@ class _LoginPageState extends State<LoginPage> {
       String message = response.message;
       String uname = response.username!;
       Navigator.pushReplacement(
-        context,
+        navigatorKey.currentContext!,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
-      ScaffoldMessenger.of(context)
+      ScaffoldMessenger.of(navigatorKey.currentContext!)
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text("$message Welcome, $uname.")));
     } else {
       showDialog(
-        context: context,
+        context: navigatorKey.currentContext!,
         builder: (context) => AlertDialog(
           title: const Text('Login Failed'),
           content: Text(response.message),
@@ -77,7 +78,10 @@ class _LoginPageState extends State<LoginPage> {
             const Text('Don\'t have an account?'),
             TextButton(
               onPressed: () {
-                MaterialPageRoute(builder: (context) => const RegisterPage());
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterPage()));
               },
               child: const Text('Register'),
             ),

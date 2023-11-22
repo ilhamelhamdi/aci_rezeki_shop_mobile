@@ -1,4 +1,5 @@
 import 'package:aci_rezeki_shop_mobile/domain/usecases/register_use_case.dart';
+import 'package:aci_rezeki_shop_mobile/main.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/widget/input_text_field.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/pages/login.dart';
 import 'package:aci_rezeki_shop_mobile/service_locator.dart';
@@ -29,16 +30,16 @@ class _RegisterPageState extends State<RegisterPage> {
       String message = response.message;
       String uname = response.username!;
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        navigatorKey.currentContext!,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
-      ScaffoldMessenger.of(context)
+      ScaffoldMessenger.of(navigatorKey.currentContext!)
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(
             content: Text("$message. Please login with username: $uname.")));
     } else {
       showDialog(
-        context: context,
+        context: navigatorKey.currentContext!,
         builder: (context) => AlertDialog(
           title: const Text('Registration Failed'),
           content: Text(response.message),
@@ -89,7 +90,8 @@ class _RegisterPageState extends State<RegisterPage> {
             const Text('Already have an account?'),
             TextButton(
               onPressed: () {
-                MaterialPageRoute(builder: (context) => const LoginPage());
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: const Text('Login'),
             ),
