@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/pages/login.dart';
 import 'package:aci_rezeki_shop_mobile/service_locator.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   setupLocator();
   runApp(const App());
@@ -14,6 +16,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Aci Rezeki Shop',
       theme: ThemeData(
         colorScheme: const ColorScheme.light().copyWith(

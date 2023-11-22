@@ -1,6 +1,7 @@
 import 'package:aci_rezeki_shop_mobile/data/models/response_model.dart';
 import 'package:aci_rezeki_shop_mobile/domain/entities/item.dart';
 import 'package:aci_rezeki_shop_mobile/domain/usecases/create_item_use_case.dart';
+import 'package:aci_rezeki_shop_mobile/main.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/pages/home.dart';
 import 'package:aci_rezeki_shop_mobile/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -97,16 +98,16 @@ class _AddItemFormState extends State<AddItemForm> {
                       if (_formKey.currentState!.validate()) {
                         final response = await createItem();
                         if (response.status == 'success') {
-                          ScaffoldMessenger.of(context)
+                          ScaffoldMessenger.of(navigatorKey.currentContext!)
                               .showSnackBar(const SnackBar(
                             content: Text("New item has been added!"),
                           ));
                           Navigator.pushReplacement(
-                            context,
+                            navigatorKey.currentContext!,
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         } else {
-                          ScaffoldMessenger.of(context)
+                          ScaffoldMessenger.of(navigatorKey.currentContext!)
                               .showSnackBar(const SnackBar(
                             content:
                                 Text("Something wrong, please try again later"),
