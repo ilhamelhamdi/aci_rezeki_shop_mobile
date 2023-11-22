@@ -2,6 +2,8 @@ import 'package:aci_rezeki_shop_mobile/data/datasources/auth_datasource.dart';
 import 'package:aci_rezeki_shop_mobile/data/datasources/item_remote_datasource.dart';
 import 'package:aci_rezeki_shop_mobile/data/repositories/auth_repository.dart';
 import 'package:aci_rezeki_shop_mobile/data/repositories/item_repository_impl.dart';
+import 'package:aci_rezeki_shop_mobile/domain/repositories/auth_repository.dart';
+import 'package:aci_rezeki_shop_mobile/domain/repositories/item_repository.dart';
 import 'package:aci_rezeki_shop_mobile/domain/usecases/create_item_use_case.dart';
 import 'package:aci_rezeki_shop_mobile/domain/usecases/get_item_detail_use_case.dart';
 import 'package:aci_rezeki_shop_mobile/domain/usecases/get_item_list_use_case.dart';
@@ -22,8 +24,10 @@ void setupLocator() {
   getIt.registerLazySingleton(() => AuthDatasource(client: getIt()));
 
   // Repositories
-  getIt.registerLazySingleton(() => ItemRepositoryImpl(datasource: getIt()));
-  getIt.registerLazySingleton(() => AuthRepositoryImpl(datasource: getIt()));
+  getIt.registerLazySingleton<ItemRepository>(
+      () => ItemRepositoryImpl(datasource: getIt()));
+  getIt.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(datasource: getIt()));
 
   // Use cases
   getIt.registerLazySingleton(() => LoginUseCase(authRepository: getIt()));

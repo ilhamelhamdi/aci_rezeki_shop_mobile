@@ -1,5 +1,5 @@
 import 'package:aci_rezeki_shop_mobile/domain/usecases/register_use_case.dart';
-import 'package:aci_rezeki_shop_mobile/main/presentation/widget/input_text_field.dart';
+import 'package:aci_rezeki_shop_mobile/presentation/widget/input_text_field.dart';
 import 'package:aci_rezeki_shop_mobile/presentation/pages/login.dart';
 import 'package:aci_rezeki_shop_mobile/service_locator.dart';
 import 'package:flutter/material.dart';
