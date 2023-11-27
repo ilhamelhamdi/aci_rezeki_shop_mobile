@@ -18,11 +18,11 @@ class ItemModel {
   // factory constructor to create ItemModel from json
   factory ItemModel.fromJson(Map<String, dynamic> json) {
     return ItemModel(
-        name: json['name'],
-        amount: json['amount'],
-        description: json['description'],
-        price: json['price'],
-        image: json['image']);
+        name: json['fields']['name'],
+        amount: json['fields']['amount'],
+        description: json['fields']['description'],
+        price: json['fields']['price'],
+        image: json['fields']['image']);
   }
 
   // method to convert ItemModel to json

@@ -31,16 +31,15 @@ class _ListItemsPageState extends State<ListItemsPage> {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                if (!snapshot.hasData) {
-                  return const Column(
-                    children: [
-                      Text(
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: const Center(
+                      child: Text(
                         "There is no item.",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      SizedBox(height: 8),
-                    ],
+                    ),
                   );
                 } else {
                   return ListView.builder(
